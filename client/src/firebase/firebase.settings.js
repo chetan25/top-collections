@@ -14,6 +14,8 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
+console.log(firebaseConfig, 'firebaseConfig');
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if(!userAuth) return;
   //  documentRef can do set/get/update/delete
