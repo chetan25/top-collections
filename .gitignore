@@ -5,13 +5,16 @@
 /.pnp
 .pnp.js
 
-/.env
+.env
 
+#client code
+/client/.env
+/client/node_modules
 # testing
-/coverage
+/client/coverage
 
 # production
-/build
+/client/build
 
 # misc
 .DS_Store
