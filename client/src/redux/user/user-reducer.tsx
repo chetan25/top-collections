@@ -17,25 +17,34 @@ interface IUserAction {
 }
 
 const initialState: IUserState =  {
-  currentUser: null,
-  error: null
+    currentUser: null,
+    error: null,
+    pageLoading: true
 };
 const userReducer = (state: IUserState = initialState, action: IUserAction): IUserState => {
    switch (action.type) {
        case SET_CURRENT_USER:
+           return {
+               ...state,
+               error: null,
+               currentUser: action.payload,
+               pageLoading: false
+           };
        case GOOGLE_SIGN_IN_SUCCESS:
        case EMAIL_SIGN_IN_SUCCESS:
        case REGISTRATION_SUCCESS:
           return {
               ...state,
               error: null,
-              currentUser: action.payload
+              currentUser: action.payload,
+              pageLoading: false
           };
        case SIGN_OUT_SUCCESS:
            return {
                ...state,
                error: null,
-               currentUser: null
+               currentUser: null,
+               pageLoading: false
            };
        case GOOGLE_SIGN_IN_FAILURE:
        case EMAIL_SIGN_IN_FAILURE:
@@ -43,7 +52,8 @@ const userReducer = (state: IUserState = initialState, action: IUserAction): IUs
        case REGISTRATION_FAILURE:
            return {
                ...state,
-               error: action.payload
+               error: action.payload,
+               pageLoading: false
            };
        default:
            return state;

@@ -1,8 +1,9 @@
 import React from "react";
 import './collection-item.styles.scss';
 import Button from "components/button/button";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from 'redux/cart/cart-actions';
+import { userIdSelector } from 'redux/user/user-selectors';
 
 interface IProps {
     item: {
@@ -15,9 +16,13 @@ interface IProps {
 
 const CollectionItem = (props: IProps) => {
     const { name, imageUrl, price } = props.item;
+    const uid = useSelector(userIdSelector);
     const dispatch = useDispatch();
     const addItem = () => {
-        dispatch(addCartItem(props.item));
+        dispatch(addCartItem({
+            item: props.item,
+            uid
+        }));
     };
 
     return (

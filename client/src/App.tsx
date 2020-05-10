@@ -1,54 +1,70 @@
-import React from 'react';
-import './App.css';
-import Home from 'pages/home/home';
-import Shop from 'pages/shop/shop';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Header from 'components/header/header';
-import SignInAndSignOut from "pages/signIn-and-signOut/signIn-and-signOut";
-import CheckOut from "pages/checkout/checkout";
-// import { auth, createUserProfileDocument, addCollectionAndDocumentItems } from 'firebase/firebase.settings';
 import { connect } from 'react-redux';
-import { checkUserSession } from "redux/user/user-actions";
 import {Dispatch} from "redux";
+
+import './App.css';
+import Header from 'components/header/header';
+import Spinner from "components/spinner/spinner";
+import ErrorBoundary from 'components/error-boundary/error-boundary';
+
+import { checkUserSession } from "redux/user/user-actions";
 import { userSelector } from "redux/user/user-selectors";
 import { IUser } from 'interfaces/user.interface';
 import { IStore } from 'interfaces/store.interface';
 
-let unSubscribeFromAuth: any;
+const HomePage = lazy(() => import('pages/home/home'));
+const ShopPage = lazy(() => import('pages/shop/shop'));
+const SignInSignOutPage = lazy(() => import('pages/signIn-and-signOut/signIn-and-signOut'));
+const CheckOutPage = lazy(() => import('pages/checkout/checkout'));
+
+// let unSubscribeFromAuth: any;
 interface IProps {
-    checkUserSession: () => void;
+    checkSession: () => void;
     currentUser: IUser|null;
+    pageLoading: boolean;
 }
 
 class App extends React.Component<IProps> {
     componentDidMount(): void {
-        checkUserSession();
+        this.props.checkSession();
     }
 
     componentWillUnmount(): void {
-       unSubscribeFromAuth();
+      // unSubscribeFromAuth();
     }
 
     render() {
         const { currentUser } = this.props;
         return (
             <div className="App">
-                <Header/>
-                <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/shop' component={Shop}/>
-                    <Route path='/checkout' component={CheckOut}/>
-                    <Route path='/signIn' render={() => currentUser ? (<Redirect to='/' />) : (<SignInAndSignOut/>)}/>
-                </Switch>
+                {
+                    this.props.pageLoading ?
+                        <Spinner /> :
+                        <>
+                            <Header/>
+                            <Switch>
+                                <ErrorBoundary>
+                                    <Suspense fallback={<Spinner />}>
+                                        <Route exact path='/' component={HomePage}/>
+                                        <Route path='/shop' component={ShopPage}/>
+                                        <Route path='/signIn' render={() => currentUser ? (<Redirect to='/' />) : (<SignInSignOutPage/>)}/>
+                                        <Route path='/checkout' component={CheckOutPage}/>
+                                    </Suspense>
+                                </ErrorBoundary>
+                            </Switch>
+                        </>
+                }
             </div>
         );
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    checkUserSession: () => dispatch(checkUserSession())
+    checkSession: () => dispatch(checkUserSession())
 });
 const mapStateToProps = (state: IStore ) => ({
-    currentUser: userSelector(state)
+    currentUser: userSelector(state),
+    pageLoading: state.user.pageLoading
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

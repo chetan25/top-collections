@@ -4,6 +4,7 @@ import {ICartItems, IDirectoryItem, IShop} from "./cart.interface";
 export interface IUserState {
     currentUser: IUser|null;
     error: any|null;
+    pageLoading: boolean;
 }
 
 export interface ICartState {

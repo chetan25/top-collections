@@ -21,8 +21,10 @@ import {
     googleProvider,
     createUserProfileDocument,
     getCurrentUser,
-    createAccountWithEmail
+    createAccountWithEmail,
+    firestore
 } from "firebase/firebase.settings";
+import { updateUserCart } from 'redux/cart/cart-actions';
 
 export function* signInWithGoogle() {
   try {
@@ -33,7 +35,12 @@ export function* signInWithGoogle() {
           id: userSnapShot.id,
           ...userSnapShot.data()
       }));
+      const cartRef = firestore.collection('users').doc(`${userSnapShot.id}`)
+          .collection('cartItems');
+      const cartSnapShot = yield cartRef.get();
+      yield put(updateUserCart({items: cartSnapShot.docs[0].data().items}))
   } catch(err) {
+      console.log(err);
       yield put(googleSignInFailure(err));
   }
 }

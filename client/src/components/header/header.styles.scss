@@ -3,16 +3,16 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 
   .logo-container {
     height: 100%;
-    width: 70px;
-    padding: 25px;
+    width: 30px;
+    padding: 15px;
   }
 
   .options {
-    width: 50%;
+    width: 74%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -21,6 +21,21 @@
     .option {
       padding: 10px 15px;
       cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .header {
+    margin-bottom: 25px;
+
+    .options {
+      width: 50%;
+
+      .option {
+        padding: 10px 15px;
+        cursor: pointer;
+      }
     }
   }
 }

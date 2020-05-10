@@ -14,8 +14,6 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-console.log(firebaseConfig, 'firebaseConfig');
-
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if(!userAuth) return;
   //  documentRef can do set/get/update/delete
@@ -36,6 +34,28 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
          console.log('error creating user');
      }
   }
+
+  //get the reference to the cartItems
+  const cartRef = firestore.collection('users').doc(`${userAuth.uid}`)
+      .collection('cartItems');
+  const cartSnapShot = await cartRef.get();
+  //if no cartItem collection create a new one
+  if (cartSnapShot.docs.length  === 0) {
+      const newCheckOutItem = cartRef.doc();
+      const createdAt = new Date();
+      try {
+          await newCheckOutItem.set({
+              'items': [],
+              createdAt,
+          });
+      } catch (err) {
+          console.log('error creating cartItem');
+      }
+  }
+  // const item = cartSnapShot.docs[0];
+  // await firestore.collection('users').doc(`${userAuth.uid}`)
+  //     .collection('cartItems').doc(`${item.id}`).delete();
+  //check if there is data for that id in that location
 
   return userRef;
 };
@@ -89,6 +109,22 @@ export const getCurrentUser = () => {
             resolve(userAuth);
         }, reject);
     })
+};
+
+export const persistCart = async (uid, cartItems) => {
+    const cartRef = firestore.collection('users').doc(`${uid}`)
+        .collection('cartItems');
+    const cartSnapShot = await cartRef.get();
+    const cartItemsDoc = cartSnapShot.docs[0];
+    const cartItemRef = await firestore.collection('users').doc(`${uid}`)
+        .collection('cartItems').doc(`${cartItemsDoc.id}`);
+    try {
+        await cartItemRef.update({
+            'items': cartItems,
+        });
+    } catch (err) {
+        console.log('error creating cartItem');
+    }
 };
 
 export default firebase;

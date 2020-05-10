@@ -1,3 +1,5 @@
+import { persistCart } from 'firebase/firebase.settings';
+
 export const addItemToCart = (cartItems: any, newItem: any) => {
   const existingItem = cartItems.find((cartItem: any) => cartItem.id === newItem.id);
   if (existingItem) {
@@ -20,7 +22,7 @@ export const removeItem = (cartItems: any, itemToRemove: any) => {
 
   if(existing) {
       if(existing.quantity === 1) {
-          return cartItems.filte((item: any) => item.id !== existing.id);
+          return cartItems.filter((item: any) => item.id !== existing.id);
       }
       return cartItems.map((item: any) => {
           return item.id !== existing.id ? item : {
@@ -32,3 +34,15 @@ export const removeItem = (cartItems: any, itemToRemove: any) => {
 
   return cartItems;
 };
+
+export const persistUserCart = (cartItems: any, payload: any) => {
+    const { uid } = payload;
+
+    if (uid) {
+        persistCart(uid, cartItems);
+    }
+}
+
+export const updateUSerCart = (payload: any) => {
+
+}

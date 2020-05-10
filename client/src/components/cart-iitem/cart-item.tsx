@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import './cart-item.styles.scss';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
     quantity: number;
 }
 
-const CartItem = (props: IProps) => {
+const CartItem = memo((props: IProps) => {
     const { name, imageUrl, price, quantity } = props;
 
     return (
@@ -21,6 +21,6 @@ const CartItem = (props: IProps) => {
             </div>
         </div>
     );
-};
+});
 
 export default CartItem;

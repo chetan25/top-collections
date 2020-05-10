@@ -6,10 +6,36 @@
   .title {
     font-size: 28px;
     margin-bottom: 25px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding-left: 5px;
   }
 
   .preview {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
+
+@media (min-width: 1025px) {
+  .collection-preview {
+    .title {
+      font-size: 28px;
+      margin-bottom: 25px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .title {
+      padding-left: 0;
+    }
+    .preview {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+  }
+}
+

@@ -34,12 +34,10 @@ export const fetchShopDataFailure = () => {
 
 export const fetchShopDataAsync = () => {
     return  (dispatch: Dispatch) => {
-        console.log('start');
         dispatch(fetchShopDataStart());
         const collectionRef = firestore.collection('collections');
         collectionRef.get().then((snapShot: any) => {
             const collectionData = convertCollectionSnapShotToMap(snapShot);
-            console.log('done', collectionData);
             dispatch(setShopData(collectionData));
         }).catch((err: any) => {
             dispatch(fetchShopDataFailure());

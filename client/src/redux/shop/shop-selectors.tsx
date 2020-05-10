@@ -9,7 +9,7 @@ export const shopSelector = createSelector(
 
 export const shopSelectorLoadingState = createSelector(
     [selectShop],
-    (shop: any) => shop.collections.isFetching
+    (shop: any) => shop.isFetching
 );
 
 export const selectCollectionPreview = createSelector(

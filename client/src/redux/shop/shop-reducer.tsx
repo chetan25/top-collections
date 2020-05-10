@@ -13,20 +13,17 @@ const INITIAL_STATE: IShopState = {
 const shopReducer = (state = INITIAL_STATE, action: any): IShopState => {
     switch (action.type) {
         case FETCH_SHOP_DATA_START:
-            console.log(action, 'action');
             return {
                 ...state,
                 isFetching: true
             };
         case FETCH_SHOP_DATA_SUCCESS:
-            console.log(action, 'action');
             return {
                 ...state,
                 isFetching: false,
                 collections: action.payload
             };
         case FETCH_SHOP_DATA_FAILURE:
-            console.log(action, 'action');
             return {
                 ...state,
                 isFetching: false,

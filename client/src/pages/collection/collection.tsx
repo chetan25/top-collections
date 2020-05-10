@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router";
 import CollectionItem from "components/collection-item/collection-item";
 import { useSelector } from "react-redux";
 import { selectCollection } from 'redux/shop/shop-selectors';
+import Spinner from "components/spinner/spinner";
 
 interface IProps extends RouteComponentProps {
 }
@@ -11,6 +12,14 @@ const Collection = (props: IProps) => {
     const params: any = props.match.params;
     const collectionId = params['collectionId'];
     const collectionItem = useSelector(selectCollection(collectionId));
+
+    if (!collectionItem) {
+        return (
+            <div className='collection-page'>
+                <Spinner/>
+            </div>
+        )
+    }
     const {title, items } = collectionItem;
 
     return (
