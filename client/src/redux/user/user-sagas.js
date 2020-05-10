@@ -74,7 +74,7 @@ export function* isUserAuthenticated() {
     try {
         const userAuth = yield getCurrentUser();
         if(!userAuth) {
-            return;
+            yield put(setCurrentUser(null));
         }
         const userRef = yield call(createUserProfileDocument, userAuth);
         const userSnapShot = yield userRef.get();
