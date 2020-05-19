@@ -5,7 +5,7 @@ import { cartSaga } from "redux/cart/cart-sagas";
 
 export default function* rootSaga() {
   yield all([
-     call(shopSaga),
+      call(shopSaga),
       call(userSaga),
       call(cartSaga)
   ]);

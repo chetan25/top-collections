@@ -4,12 +4,15 @@ import FormInput from "components/form-input/form-input";
 import Button from 'components/button/button';
 import { googleSignInStart, emailSignInStart } from "redux/user/user-actions";
 import { useDispatch } from "react-redux";
+import { userSignInErrorSelector } from 'redux/user/user-selectors';
+import { useSelector } from "react-redux";
 
 interface IState {
     email: string;
     password: string;
 }
 const SignIn = () => {
+    const error = useSelector(userSignInErrorSelector);
    const [credentials, setCredentials] = useState<IState>({
        email: '',
        password: ''
@@ -26,8 +29,8 @@ const SignIn = () => {
        dispatch(emailSignInStart(email, password));
    };
 
-   const handleChange = (event: any) => {
-       const {value, name} = event;
+   const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+       const {value, name} = event.target;
        const newValue = {
            ...credentials,
            [name]: value
@@ -61,6 +64,16 @@ const SignIn = () => {
                  <Button onClick={signInWithGoogleStart} isGoogleSignIn={true}>Sign In With Google</Button>
              </div>
          </form>
+         <div className='sign-in-error'>
+             {
+                 error ?
+                     <>
+                         <span>Please Fix the Errors and try again</span>
+                         <ul><li>{error.message}</li></ul>
+                     </>
+                     : null
+             }
+         </div>
      </div>
    );
 };

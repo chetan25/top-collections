@@ -18,6 +18,7 @@ module.exports = {
                     firebase: './src/firebase',
                     assets: './src/assets',
                     interfaces: './src/interfaces',
+                    test: './src/__tests__',
                 },
             },
         ],

@@ -22,18 +22,24 @@ const CartDropDown = (props: IProps) => {
 
     return (
         <div className='cart-dropdown'>
-            <div className='cart-items'>
-                {
-                    cartItems.length > 0 ?
-                        cartItems.map((item: any) => {
-                            return <CartItem key={item.id} {...item} />
-                        }) :
-                        <span className='empty-message'>
+            {
+                cartItems.length > 0 ?
+                    <>
+                    <div className='cart-items'>
+                        {
+                            cartItems.map((item: any) => {
+                                return <CartItem key={item.id} {...item} />
+                            })
+                        }
+                    </div>
+                    <Button onClick={goToCheckout}>Go To CHECKOUT</Button>
+                    </> :
+                    <div className='cart-items'>
+                       <span className='empty-message'>
                             Your Cart is empty
-                        </span>
-                }
-            </div>
-            <Button onClick={goToCheckout}>Go To CHECKOUT</Button>
+                       </span>
+                    </div>
+            }
         </div>
     );
 };

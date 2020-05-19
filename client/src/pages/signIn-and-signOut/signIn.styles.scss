@@ -11,6 +11,11 @@
     display: flex;
     justify-content: space-between;
   }
+  .sign-in-error {
+    margin: 20px 20px 0 0;
+    color: red;
+    font: caption;
+  }
 }
 
 @media (min-width: 1025px) {

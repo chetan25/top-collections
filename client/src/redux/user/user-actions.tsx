@@ -51,8 +51,9 @@ export const emailSignInSuccess = (user: any) => ({
     payload: user
 });
 
-export const emailSignInFailure = () => ({
-    type: EMAIL_SIGN_IN_FAILURE
+export const emailSignInFailure = (error: any) => ({
+    type: EMAIL_SIGN_IN_FAILURE,
+    payload: error
 });
 
 export const checkUserSession = () => ({

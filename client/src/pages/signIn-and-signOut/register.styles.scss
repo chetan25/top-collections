@@ -7,6 +7,14 @@
   .title {
     margin: 10px 0;
   }
+  .sign-up-button {
+    margin-bottom: 10px;
+  }
+  .registration-error {
+    margin: 10px;
+    color: red;
+    font: caption;
+  }
 }
 
 @media (min-width: 1025px) {

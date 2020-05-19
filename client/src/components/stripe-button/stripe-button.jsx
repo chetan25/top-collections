@@ -2,12 +2,11 @@ import React from "react";
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 
-const StripeCheckoutButton = ({ price }) => {
+const StripeCheckoutButton = ({ price, callBackFn }) => {
     const priceForStripe = price * 100;
     const key = 'pk_test_vt9Jycr0ABbkBMzMcTka0Fd300uKoNBOQQ';
 
     const onToken = (token) => {
-        console.log(token);
         axios({
             url: 'payment',
             method: 'post',
@@ -16,9 +15,9 @@ const StripeCheckoutButton = ({ price }) => {
                 token: token
             }
         }).then(success => {
-            console.log(success);
+            callBackFn('success');
         }).catch(error => {
-            console.log(error);
+            callBackFn('error')
         });
     };
 

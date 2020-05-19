@@ -4,14 +4,10 @@ import Button from "components/button/button";
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from 'redux/cart/cart-actions';
 import { userIdSelector } from 'redux/user/user-selectors';
+import  { IItem } from 'interfaces/cart.interface'
 
 interface IProps {
-    item: {
-        name: string;
-        imageUrl: string;
-        price: number;
-        id: number;
-    }
+    item: IItem;
 }
 
 const CollectionItem = (props: IProps) => {

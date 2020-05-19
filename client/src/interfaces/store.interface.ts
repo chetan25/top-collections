@@ -3,8 +3,10 @@ import {ICartItems, IDirectoryItem, IShop} from "./cart.interface";
 
 export interface IUserState {
     currentUser: IUser|null;
-    error: any|null;
+    signInError: any|null;
+    registrationError: any|null;
     pageLoading: boolean;
+    signInProgress: boolean;
 }
 
 export interface ICartState {

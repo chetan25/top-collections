@@ -1,7 +1,7 @@
 import React from "react";
 import './header.styles.scss';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from 'assets/icon.svg';
+import Logo from 'assets/icon.png';
 import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from "components/cart-icon/cart-icon";
 import CartDropDown from "components/cart-dropdown/cart-dropdown";
@@ -17,11 +17,10 @@ const Header = () => {
     return (
         <div className='header'>
             <Link to='/' className='logo-container'>
-                <Logo className='logo'/>
+                <img src={Logo} alt="Logo"  className='logo' />
             </Link>
             <div className='options'>
                 <Link to='/shop' className='option'>Shop</Link>
-                <Link to='/contact' className='option'>Contact</Link>
                 {
                     currentUser ?
                         <div className='option' onClick={() => dispatch(signOutStart())}>

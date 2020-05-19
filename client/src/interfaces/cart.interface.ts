@@ -1,8 +1,11 @@
-export interface ICartItems {
+export interface IItem {
     id: number;
     imageUrl: string;
     name: string;
     price: number;
+}
+
+export interface ICartItems extends IItem{
     quantity: number;
 }
 
@@ -11,13 +14,7 @@ export interface IDirectoryItem {
     imageUrl: string;
     linkUrl: string;
     title: string;
-}
-
-export interface IItem {
-    id: number;
-    imageUrl: string;
-    name: string;
-    price: number;
+    size?: string;
 }
 
 // type RouteTypes = 'hats' | 'jackets' | 'men' | 'women' | 'sneakers';
@@ -40,10 +37,5 @@ export interface ICollectionreview  {
     id: string;
     title: string;
     routeName: string;
-    items: {
-        id: number;
-        name: string;
-        imageUrl: string;
-        price: number;
-    }[];
+    items: IItem[];
 }

@@ -54,6 +54,7 @@ export function* signInWithEmail(action) {
     const { payload } = action;
     const { email, password } = payload;
     try {
+        console.log('user');
         const { user } = yield auth.signInWithEmailAndPassword(email, password);
         const userRef = yield call(createUserProfileDocument, user);
         const userSnapShot = yield userRef.get();
@@ -62,7 +63,8 @@ export function* signInWithEmail(action) {
             ...userSnapShot.data()
         }));
     } catch(err) {
-        put(emailSignInFailure(err));
+        console.log('error');
+        yield  put(emailSignInFailure(err));
     }
 }
 
@@ -75,6 +77,7 @@ export function* isUserAuthenticated() {
         const userAuth = yield getCurrentUser();
         if(!userAuth) {
             yield put(setCurrentUser(null));
+            return;
         }
         const userRef = yield call(createUserProfileDocument, userAuth);
         const userSnapShot = yield userRef.get();
@@ -83,7 +86,7 @@ export function* isUserAuthenticated() {
             ...userSnapShot.data()
         }));
     } catch(err) {
-        yield put(emailSignInFailure(err));
+        yield put(emailSignInFailure(err.message));
     }
 }
 
@@ -104,9 +107,10 @@ export function* onSignOutStart() {
    yield takeLatest(SIGN_OUT_START, onSignOut);
 }
 
-export function* onRegistration(payload) {
+export function* onRegistration(action) {
     try {
-        const {email, password, displayName } = payload;
+        const {email, password, displayName } = action.payload;
+        console.log(action.payload, 'payload');
         const { user } = yield createAccountWithEmail(email, password);
         yield put(registrationSuccess({
             user,

@@ -3,16 +3,12 @@ import './preview-collection.styles.scss';
 import CollectionItem from "components/collection-item/collection-item";
 import { withRouter } from 'react-router-dom';
 import {RouteComponentProps} from "react-router";
+import  { IItem } from 'interfaces/cart.interface'
 
 interface IProps extends RouteComponentProps {
     title: string;
     routeName: string;
-    items: {
-        id: number;
-        name: string;
-        imageUrl: string;
-        price: number;
-    }[];
+    items: IItem[];
 }
 
 const PreviewCollection = (props: IProps) => {

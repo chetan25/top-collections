@@ -4,11 +4,20 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  position: sticky;
+  background-color: white;
+  top: 0px;
+  border-bottom: 1px solid darkseagreen;
+  z-index: 1000;
+  opacity: 1;
 
   .logo-container {
     height: 100%;
-    width: 30px;
-    padding: 15px;
+    width: 17vw;
+
+    .logo {
+      width:100%;
+    }
   }
 
   .options {
@@ -29,6 +38,9 @@
   .header {
     margin-bottom: 25px;
 
+    .logo-container {
+      width: 5vw;
+    }
     .options {
       width: 50%;
 

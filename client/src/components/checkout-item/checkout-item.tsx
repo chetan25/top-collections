@@ -3,14 +3,10 @@ import './checkout-item.styles.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { removeCartItem, addCartItem, removeItem } from 'redux/cart/cart-actions';
 import { userIdSelector } from 'redux/user/user-selectors';
+import { ICartItems } from 'interfaces/cart.interface';
 
 interface IProps {
-  item: {
-      name: string;
-      imageUrl: string;
-      price: number;
-      quantity: number;
-  }
+  item: ICartItems;
 }
 
 const CheckOutItems = (props: IProps) => {
