@@ -48,6 +48,17 @@ The one under client folder, has the keys for the Firebase integration.
 <li>To run Test, run 'npm run test' from the client folder.</li>
 </ul> 
 
+### For Production
+If you are using Heroku for deploying the App, follow the steps
+<ul>
+<li>Create a git repo and commit and push your code to git.</li>
+<li>Create Heroku remote by running 'Heroku create' in root of your folder</li>
+<li>Check the new remote is available by running 'git remote -v'</li>
+<li>Now push your code to heroku by running git push heroku master'</li>
+<li>Details can be found in https://devcenter.heroku.com/articles/git</li>
+<li>Don't forget to add the env variable to Heroku, you can run the 'heroku config:set REACT_APP_KEY_NAME=value'</li>
+</ul>
+
 ### You Can get the demo cards to be used for Stripe payment from https://stripe.com/docs/testing.
 
 ### `npm run heroku-postbuild`
