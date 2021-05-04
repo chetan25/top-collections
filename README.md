@@ -1,7 +1,7 @@
 
 ## Top Clothing
 This is a sample online clothing app, build as a side project while practicing some
-new Frontend technologies.
+new Frontend technologies. A working demo can be found on https://top-clothing.herokuapp.com/
 
 ### Front End Tech Stack
 <ul>
